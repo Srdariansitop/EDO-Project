@@ -54,18 +54,17 @@ def Graficar():
 
 #Funcion de Dario
 def Resolver():
-  dxdy = ObtenerTexto(cajatext1)
   Xo = ObtenerTexto(cajatext2)
   Yo = ObtenerTexto(cajatext3)
   H = ObtenerTexto(cajatext4)
 
 #Boton Graficar
-boton1 = tk.Button(ventana,text="Graficar" , command= Graficar)
+boton1 = tk.Button(ventana,text=" Graficar" , command = Graficar)
 boton1.pack()
 boton1.place(x=100,y= 300)
 
 #Boton Resolver
-boton2 = tk.Button(ventana,text="Resolver" , command= Resolver)
+boton2 = tk.Button(ventana,text=" Resolver" , command = Resolver)
 boton2.pack()
 boton2.place(x=100,y= 600)
 
