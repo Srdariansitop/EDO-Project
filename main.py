@@ -40,6 +40,15 @@ cajatext4 = tk.Entry(ventana)
 cajatext4.pack()
 cajatext4.place(x=100 , y = 150)
 
+#Etiqueta 5
+etiqueta5 = tk.Label(ventana,text=" xi :")
+etiqueta5.pack()
+etiqueta5.place(x = 50 , y = 190)
+#Caja de Texto 5
+cajatext5 = tk.Entry(ventana)
+cajatext5.pack()
+cajatext5.place(x=100 , y = 190)
+
 #Obtener Texto
 def ObtenerTexto(cajatext):
     text = cajatext.get()
@@ -60,6 +69,7 @@ def Resolver():
     Yo = float(ObtenerTexto(cajatext3))
     H = float(ObtenerTexto(cajatext4))
     f = Function(ObtenerTexto(cajatext1))
+    xi = ObtenerTexto(cajatext5)
     x = Xo
     y = Yo
     respuesta = [(x, y)]
@@ -75,18 +85,26 @@ def Resolver():
         print('printing point')
         print(f'x = {item[0]}')
         print(f'y = {item[1]}')
+
+    ActualizarEtiqueta(etiqueta6,respuesta)
     return respuesta
+
+
 #Boton Graficar
 boton1 = tk.Button(ventana,text=" Graficar" , command = Graficar)
 boton1.pack()
-boton1.place(x=100,y= 300)
+boton1.place(x=100,y= 600)
 
 #Boton Resolver
 boton2 = tk.Button(ventana,text=" Resolver" , command = Resolver)
 boton2.pack()
-boton2.place(x=100,y= 600)
+boton2.place(x=100,y= 300)
 
+etiqueta6 = tk.Label(ventana,text="")
+etiqueta6.pack()
+etiqueta6.place(x = 100 , y = 340)
 
-
+def ActualizarEtiqueta(etiqueta,valor):
+   etiqueta.config(text = "La funcion es : {valor}")
 
 ventana.mainloop()
