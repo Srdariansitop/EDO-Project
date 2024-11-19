@@ -1,6 +1,7 @@
 import tkinter as tk
-
+from tkinter import ttk
 from Function import Function
+from grafico import graficar_campo_isoclinas_y_solucion
 
 ventana = tk.Tk()
 ventana.title("Interfaz")
@@ -49,45 +50,67 @@ cajatext5 = tk.Entry(ventana)
 cajatext5.pack()
 cajatext5.place(x=100 , y = 190)
 
+#Posible mensaje de Error
+label_error = tk.Label(ventana, text="", fg="red") 
+label_error.pack() 
+
+# Crea un Label para la respuesta
+respuesta_frame = ttk.Frame(ventana, relief="sunken", borderwidth=2)
+respuesta_frame.pack(pady=10, side=tk.BOTTOM, anchor=tk.CENTER)
+respuesta_frame.place(x=60,y=350)
+
+respuesta_label = ttk.Label(respuesta_frame, text="", wraplength=300, justify="left")
+respuesta_label.pack(padx=70, pady=70)
+
+
 #Obtener Texto
 def ObtenerTexto(cajatext):
     text = cajatext.get()
     return text
 
-#Funcion de Alina
 def Graficar():
- dxdy = ObtenerTexto(cajatext1)
- Xo = ObtenerTexto(cajatext2)
- Yo = ObtenerTexto(cajatext3)
+ f = ObtenerTexto(cajatext1)
  H = ObtenerTexto(cajatext4)
+ #graficar_campo_isoclinas_y_solucion(f,H,Resolver())
  
-  
 
-#Funcion de Dario
 def Resolver():
-    Xo = float(ObtenerTexto(cajatext2))
-    Yo = float(ObtenerTexto(cajatext3))
-    H = float(ObtenerTexto(cajatext4))
-    f = Function(ObtenerTexto(cajatext1))
-    xi = ObtenerTexto(cajatext5)
-    x = Xo
-    y = Yo
-    respuesta = [(x, y)]
-    while x < 2:
-        k1 = H * f.evaluate(x, y)
-        k2 = H * f.evaluate(x + H / 2, y + k1 / 2)
-        k3 = H * f.evaluate(x + H / 2, y + k2 / 2)
-        k4 = H * f.evaluate(x + H, y + k3)
-        y = y + (k1 + 2 * k2 + 2 * k3 + k4) / 6
-        x = x + H
-        respuesta.append((x, y))
-    for item in respuesta:
-        print('printing point')
-        print(f'x = {item[0]}')
-        print(f'y = {item[1]}')
+    try:
+        label_error.config(text="")
+        respuesta_label.config(text="")
+        Xo = float(ObtenerTexto(cajatext2))
+        Yo = float(ObtenerTexto(cajatext3))
+        H = float(ObtenerTexto(cajatext4))
+        f = Function(ObtenerTexto(cajatext1))
+        xi = float(ObtenerTexto(cajatext5))
+        x = Xo
+        y = Yo
+        respuesta = [(x, y)]
+        while x < xi:
+            k1 = H * f.evaluate(x, y)
+            k2 = H * f.evaluate(x + H / 2, y + k1 / 2)
+            k3 = H * f.evaluate(x + H / 2, y + k2 / 2)
+            k4 = H * f.evaluate(x + H, y + k3)
+            y = y + (k1 + 2 * k2 + 2 * k3 + k4) / 6
+            x = x + H
+            respuesta.append((x, y))
+        for item in respuesta:
+            print('printing point')
+            print(f'x = {item[0]}')
+            print(f'y = {item[1]}')
+        ultimo_punto = respuesta[-1] 
+        texto_respuesta = f"""Solución por el método Runge-Kutta:
+                        x = {ultimo_punto[0]:.2f}
+                        y = {ultimo_punto[1]:.2f}"""
+        respuesta_label.config(text=texto_respuesta,font=("Helvetica", 14))
+        return respuesta
+    except ValueError:
+        label_error.config(text="Error: Ingrese valores numéricos válidos.")
+        return None
+    except Exception as e:  # Captura otras posibles excepciones
+        label_error.config(text=f"Ocurrió un error: {e}")
+        return None
 
-    ActualizarEtiqueta(etiqueta6,respuesta)
-    return respuesta
 
 
 #Boton Graficar
@@ -100,11 +123,6 @@ boton2 = tk.Button(ventana,text=" Resolver" , command = Resolver)
 boton2.pack()
 boton2.place(x=100,y= 300)
 
-etiqueta6 = tk.Label(ventana,text="")
-etiqueta6.pack()
-etiqueta6.place(x = 100 , y = 340)
 
-def ActualizarEtiqueta(etiqueta,valor):
-   etiqueta.config(text = "La funcion es : {valor}")
 
 ventana.mainloop()
