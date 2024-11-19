@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from Function import Function
 from grafico import graficar_campo_isoclinas_y_solucion
+import sys
 
 ventana = tk.Tk()
 ventana.title("Interfaz")
@@ -63,6 +64,22 @@ respuesta_label = ttk.Label(respuesta_frame, text="", wraplength=300, justify="l
 respuesta_label.pack(padx=70, pady=70)
 
 
+# Función para obtener el epsilon de la máquina
+def VerEpsilon():
+    epsilon = sys.float_info.epsilon
+    label_epsilon.config(text=f"Epsilon de la máquina: {epsilon:.16f}")
+
+# Botón para ver el epsilon de la máquina
+boton_epsilon = tk.Button(ventana, text="Ver Epsilon de la máquina", command=VerEpsilon)
+boton_epsilon.pack()
+boton_epsilon.place(x=100, y=250)
+
+# Etiqueta para mostrar el valor del epsilon, colocada justo al lado del botón
+label_epsilon = tk.Label(ventana, text="", font=("Helvetica", 12), fg="blue")
+label_epsilon.pack()
+label_epsilon.place(x=250, y=250)  # Ajusta la posición para que esté al lado del botón
+
+
 #Obtener Texto
 def ObtenerTexto(cajatext):
     text = cajatext.get()
@@ -112,7 +129,6 @@ def Resolver():
         return None
 
 
-
 #Boton Graficar
 boton1 = tk.Button(ventana,text=" Graficar" , command = Graficar)
 boton1.pack()
@@ -122,7 +138,5 @@ boton1.place(x=100,y= 600)
 boton2 = tk.Button(ventana,text=" Resolver" , command = Resolver)
 boton2.pack()
 boton2.place(x=100,y= 300)
-
-
 
 ventana.mainloop()
