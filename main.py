@@ -2,6 +2,12 @@ import tkinter as tk
 from tkinter import ttk
 from Function import Function
 from grafico import graficar_campo_isoclinas_y_solucion
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
+
+
 
 ventana = tk.Tk()
 ventana.title("Interfaz")
@@ -69,9 +75,66 @@ def ObtenerTexto(cajatext):
     return text
 
 def Graficar():
- f = ObtenerTexto(cajatext1)
- H = ObtenerTexto(cajatext4)
- #graficar_campo_isoclinas_y_solucion(f,H,Resolver())
+    try:
+        # Obtener datos de la interfaz (asumiendo que tienes funciones para obtenerlos)
+        f = Function(ObtenerTexto(cajatext1)) # Asegúrate que la función f está definida y que el texto se parsea correctamente
+        h = float(ObtenerTexto(cajatext4)) # Paso de Runge-Kutta
+        puntos_rk = Resolver() # Obtener puntos de Runge Kutta desde la función Resolver()
+        if puntos_rk is None:
+            return # Manejar el caso donde Resolver() falla
+
+        x_vals, y_vals = zip(*puntos_rk)
+        xi, xf = min(x_vals), max(x_vals)
+        yi, yf = min(y_vals), max(y_vals)
+
+        margen = 0.2
+        expansion_isoclinas = 5
+
+        rango_x = xf - xi
+        rango_y = yf - yi
+        xi -= rango_x * margen
+        xf += rango_x * margen
+        yi -= rango_y * margen
+        yf += rango_y * margen
+
+        xi -= expansion_isoclinas
+        xf += expansion_isoclinas
+        yi -= expansion_isoclinas
+        yf += expansion_isoclinas
+
+        x = np.arange(xi, xf + h, h)
+        y = np.arange(yi, yf + h, h)
+        X, Y = np.meshgrid(x, y)
+
+        U = 1
+        V = np.array([f.evaluate(X[i,j],Y[i,j]) for i in range(X.shape[0]) for j in range(X.shape[1])]).reshape(X.shape)
+        U2, V2 = U / np.sqrt(U**2 + V**2), V / np.sqrt(U**2 + V**2)
+
+        fig = Figure(figsize=(7, 6), dpi=100)
+        ax = fig.add_subplot(111)
+
+        ax.quiver(X, Y, U2, V2, color='gray', alpha=0.6)
+        ax.plot(x_vals, y_vals, color='blue', label='Solución Runge-Kutta', marker='o')
+        ax.set_title(r'Campo de direcciones y Solución Runge-Kutta')
+        ax.set_xlim(xi, xf)
+        ax.set_ylim(yi, yf)
+        ax.grid(True)
+        ax.set_xlabel('x')
+        ax.set_ylabel('y')
+        ax.axhline(0, color='black', linewidth=0.5, ls='--')
+        ax.axvline(0, color='black', linewidth=0.5, ls='--')
+        ax.legend()
+
+        canvas = FigureCanvasTkAgg(fig, master=ventana)
+        canvas.draw()
+        canvas.get_tk_widget().place(x=800, y=70)
+
+    except Exception as e:
+        label_error.config(text=f"Error al graficar: {e}")
+
+    
+
+
  
 
 def Resolver():
@@ -107,7 +170,7 @@ def Resolver():
     except ValueError:
         label_error.config(text="Error: Ingrese valores numéricos válidos.")
         return None
-    except Exception as e:  # Captura otras posibles excepciones
+    except Exception as e:  
         label_error.config(text=f"Ocurrió un error: {e}")
         return None
 
