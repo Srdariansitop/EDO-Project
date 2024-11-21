@@ -6,6 +6,7 @@ import sys
 
 ventana = tk.Tk()
 ventana.title("Interfaz")
+
 #Etiqueta
 etiqueta = tk.Label(ventana,text= " dx/dy : ")
 etiqueta.pack()
@@ -58,7 +59,7 @@ label_error.pack()
 # Crea un Label para la respuesta
 respuesta_frame = ttk.Frame(ventana, relief="sunken", borderwidth=2)
 respuesta_frame.pack(pady=10, side=tk.BOTTOM, anchor=tk.CENTER)
-respuesta_frame.place(x=60,y=350)
+respuesta_frame.place(x=60,y=360)
 
 respuesta_label = ttk.Label(respuesta_frame, text="", wraplength=300, justify="left")
 respuesta_label.pack(padx=70, pady=70)
@@ -72,12 +73,61 @@ def VerEpsilon():
 # Botón para ver el epsilon de la máquina
 boton_epsilon = tk.Button(ventana, text="Ver Epsilon de la máquina", command=VerEpsilon)
 boton_epsilon.pack()
-boton_epsilon.place(x=100, y=250)
+boton_epsilon.place(x=50, y=250)
 
 # Etiqueta para mostrar el valor del epsilon, colocada justo al lado del botón
 label_epsilon = tk.Label(ventana, text="", font=("Helvetica", 12), fg="blue")
 label_epsilon.pack()
 label_epsilon.place(x=250, y=250)  # Ajusta la posición para que esté al lado del botón
+
+# ELEMENTOS NUMERICA CALCULAR ERROR
+# Etiqueta para introducir el valor real
+etiqueta_real = tk.Label(ventana, text="Introducir Valor Real:")
+etiqueta_real.pack()
+etiqueta_real.place(x=50, y=290)
+
+# Caja de texto para el valor real
+cajatext_real = tk.Entry(ventana)
+cajatext_real.pack()
+cajatext_real.place(x=200, y=290)
+
+# Botón para calcular el error
+def CalcularError():
+    try:
+        valor_real = float(cajatext_real.get())  # Obtener el valor exacto
+        if respuesta_label["text"]:  # Asegurarse de que ya hay una solución
+            texto_respuesta = respuesta_label["text"]
+            y_aprox = float(texto_respuesta.split("y = ")[1])  # Extraer y
+            error_absoluto = abs(valor_real - y_aprox)  # Calcular error absoluto
+            error_relativo = (error_absoluto / abs(valor_real)) * 100  # Calcular error relativo
+            label_error_absoluto.config(text=f"{error_absoluto:.4f}")
+            label_error_relativo.config(text=f"{error_relativo:.2f}%")
+        else:
+            label_error.config(text="Primero resuelva la EDO para calcular los errores.")
+    except ValueError:
+        label_error.config(text="Ingrese un valor numérico válido para el valor real.")
+
+boton_calcular_error = tk.Button(ventana, text="Calcular Error", command=CalcularError)
+boton_calcular_error.pack()
+boton_calcular_error.place(x=420, y=290)
+
+# Etiquetas para los errores
+etiqueta_error_relativo = tk.Label(ventana, text="Error Relativo en Porcentaje:")
+etiqueta_error_relativo.pack()
+etiqueta_error_relativo.place(x=420, y=330)
+
+label_error_relativo = tk.Label(ventana, text="---")
+label_error_relativo.pack()
+label_error_relativo.place(x=580, y=330)
+
+etiqueta_error_absoluto = tk.Label(ventana, text="Error Absoluto:")
+etiqueta_error_absoluto.pack()
+etiqueta_error_absoluto.place(x=420, y=360)
+
+label_error_absoluto = tk.Label(ventana, text="---")
+label_error_absoluto.pack()
+label_error_absoluto.place(x=510, y=360)
+# ** FIN DE LOS ELEMENTOS NUEVOS **
 
 
 #Obtener Texto
@@ -137,6 +187,6 @@ boton1.place(x=100,y= 600)
 #Boton Resolver
 boton2 = tk.Button(ventana,text=" Resolver" , command = Resolver)
 boton2.pack()
-boton2.place(x=100,y= 300)
+boton2.place(x=100,y= 325)
 
 ventana.mainloop()
