@@ -2,57 +2,70 @@ import tkinter as tk
 from tkinter import ttk
 from Function import Function
 import numpy as np
-import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import sys
+import os
+from PIL import Image, ImageTk 
+
+
 
 
 ventana = tk.Tk()
 ventana.title("Interfaz")
 
+ruta_imagen = os.path.join(os.getcwd(), "Image", "X2.jpg")
+
+try:
+    img = Image.open(ruta_imagen)
+    photo = ImageTk.PhotoImage(img)
+    label = tk.Label(ventana, image=photo)
+    label.pack()
+except Exception as e:
+    print(f"Error: {e}")
+
 #Etiqueta
-etiqueta = tk.Label(ventana,text= " dx/dy : ")
+etiqueta = tk.Label(ventana,text= " dx/dy : ",bg='black',fg='white')
 etiqueta.pack()
 etiqueta.place(x = 50 , y = 30)
 #Caja de Texto
-cajatext1 = tk.Entry(ventana)
+cajatext1 = tk.Entry(ventana,bg='black',fg='white')
 cajatext1.pack()
 cajatext1.place(x=100 , y = 30)
 
 #Etiqueta 2
-etiqueta2 = tk.Label(ventana,text=" Xo :")
+etiqueta2 = tk.Label(ventana,text=" Xo :",bg='black',fg='white')
 etiqueta2.pack()
 etiqueta2.place(x = 50 , y = 70)
 #Caja de Texto 2
-cajatext2 = tk.Entry(ventana)
+cajatext2 = tk.Entry(ventana,bg='black',fg='white')
 cajatext2.pack()
 cajatext2.place(x=100 , y = 70)
 
 #Etiqueta 3
-etiqueta3 = tk.Label(ventana,text=" Yo :")
+etiqueta3 = tk.Label(ventana,text=" Yo :",bg='black',fg='white')
 etiqueta3.pack()
 etiqueta3.place(x = 50 , y = 110)
 #Caja de Texto 3
-cajatext3 = tk.Entry(ventana)
+cajatext3 = tk.Entry(ventana,bg='black',fg='white')
 cajatext3.pack()
 cajatext3.place(x=100 , y = 110)
 
 #Etiqueta 4
-etiqueta4 = tk.Label(ventana,text=" H :")
+etiqueta4 = tk.Label(ventana,text=" H :",bg='black',fg='white')
 etiqueta4.pack()
 etiqueta4.place(x = 50 , y = 150)
 #Caja de Texto 4
-cajatext4 = tk.Entry(ventana)
+cajatext4 = tk.Entry(ventana,bg='black',fg='white')
 cajatext4.pack()
 cajatext4.place(x=100 , y = 150)
 
 #Etiqueta 5
-etiqueta5 = tk.Label(ventana,text=" xi :")
+etiqueta5 = tk.Label(ventana,text=" xi :",bg='black',fg='white')
 etiqueta5.pack()
 etiqueta5.place(x = 50 , y = 190)
 #Caja de Texto 5
-cajatext5 = tk.Entry(ventana)
+cajatext5 = tk.Entry(ventana , bg='black',fg='white')
 cajatext5.pack()
 cajatext5.place(x=100 , y = 190)
 
@@ -75,23 +88,23 @@ def VerEpsilon():
     label_epsilon.config(text=f"Epsilon de la máquina: {epsilon:.16f}")
 
 # Botón para ver el epsilon de la máquina
-boton_epsilon = tk.Button(ventana, text="Ver Epsilon de la máquina", command=VerEpsilon)
+boton_epsilon = tk.Button(ventana, text="Ver Epsilon de la máquina", command=VerEpsilon,bg='black',fg='white')
 boton_epsilon.pack()
 boton_epsilon.place(x=50, y=250)
 
 # Etiqueta para mostrar el valor del epsilon, colocada justo al lado del botón
-label_epsilon = tk.Label(ventana, text="", font=("Helvetica", 12), fg="blue")
+label_epsilon = tk.Label(ventana, text="", font=("Helvetica", 12), fg="white" , bg='black')
 label_epsilon.pack()
 label_epsilon.place(x=250, y=250)  # Ajusta la posición para que esté al lado del botón
 
 # ELEMENTOS NUMERICA CALCULAR ERROR
 # Etiqueta para introducir el valor real
-etiqueta_real = tk.Label(ventana, text="Introducir Valor Real:")
+etiqueta_real = tk.Label(ventana, text="Introducir Valor Real:",bg='black',fg='white')
 etiqueta_real.pack()
 etiqueta_real.place(x=50, y=290)
 
 # Caja de texto para el valor real
-cajatext_real = tk.Entry(ventana)
+cajatext_real = tk.Entry(ventana,bg='black',fg='white')
 cajatext_real.pack()
 cajatext_real.place(x=200, y=290)
 
@@ -111,24 +124,24 @@ def CalcularError():
     except ValueError:
         label_error.config(text="Ingrese un valor numérico válido para el valor real.")
 
-boton_calcular_error = tk.Button(ventana, text="Calcular Error", command=CalcularError)
+boton_calcular_error = tk.Button(ventana, text="Calcular Error", command=CalcularError,bg='black',fg='white')
 boton_calcular_error.pack()
 boton_calcular_error.place(x=420, y=290)
 
 # Etiquetas para los errores
-etiqueta_error_relativo = tk.Label(ventana, text="Error Relativo en Porcentaje:")
+etiqueta_error_relativo = tk.Label(ventana, text="Error Relativo en Porcentaje:",bg='black',fg='white')
 etiqueta_error_relativo.pack()
 etiqueta_error_relativo.place(x=420, y=330)
 
-label_error_relativo = tk.Label(ventana, text="---")
+label_error_relativo = tk.Label(ventana, text="",bg='black',fg='white')
 label_error_relativo.pack()
 label_error_relativo.place(x=580, y=330)
 
-etiqueta_error_absoluto = tk.Label(ventana, text="Error Absoluto:")
+etiqueta_error_absoluto = tk.Label(ventana, text="Error Absoluto:",bg='black',fg='white')
 etiqueta_error_absoluto.pack()
 etiqueta_error_absoluto.place(x=420, y=360)
 
-label_error_absoluto = tk.Label(ventana, text="---")
+label_error_absoluto = tk.Label(ventana, text="",bg='black',fg='white')
 label_error_absoluto.pack()
 label_error_absoluto.place(x=510, y=360)
 # ** FIN DE LOS ELEMENTOS NUEVOS **
@@ -241,12 +254,12 @@ def Resolver():
 
 
 #Boton Graficar
-boton1 = tk.Button(ventana,text=" Graficar" , command = Graficar)
+boton1 = tk.Button(ventana,text=" Graficar" , command = Graficar,bg='black',fg='white')
 boton1.pack()
 boton1.place(x=100,y= 600)
 
 #Boton Resolver
-boton2 = tk.Button(ventana,text=" Resolver" , command = Resolver)
+boton2 = tk.Button(ventana,text=" Resolver" , command = Resolver,bg='black',fg='white')
 boton2.pack()
 boton2.place(x=100,y= 325)
 
