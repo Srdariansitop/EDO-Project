@@ -7,7 +7,7 @@ from matplotlib.figure import Figure
 import sys
 import os
 from PIL import Image, ImageTk 
-
+from numerica import n
 
 
 
@@ -210,10 +210,6 @@ def Graficar():
     except Exception as e:
         label_error.config(text=f"Error al graficar: {e}")
 
-    
-
-
- 
 
 def Resolver():
     try:
@@ -229,11 +225,11 @@ def Resolver():
         respuesta = [(x, y)]
         while x < xi:
             k1 = H * f.evaluate(x, y)
-            k2 = H * f.evaluate(x + H / 2, y + k1 / 2)
-            k3 = H * f.evaluate(x + H / 2, y + k2 / 2)
-            k4 = H * f.evaluate(x + H, y + k3)
-            y = y + (k1 + 2 * k2 + 2 * k3 + k4) / 6
-            x = x + H
+            k2 = H * f.evaluate(n.suma_numerica(x, H / 2), n.suma_numerica(y, k1 / 2))
+            k3 = H * f.evaluate(n.suma_numerica(x, H / 2), n.suma_numerica(y, k2 / 2))
+            k4 = H * f.evaluate(n.suma_numerica(x, H), n.suma_numerica(y, k3))
+            y = n.suma_numerica(y, n.suma_numerica(k1, 2 * k2, 2 * k3, k4) / 6)
+            x = n.suma_numerica(x + H)
             respuesta.append((x, y))
         for item in respuesta:
             print('printing point')
