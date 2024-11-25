@@ -7,7 +7,7 @@ from matplotlib.figure import Figure
 import sys
 import os
 from PIL import Image, ImageTk 
-from numerica import n
+from numerica import Numerica as n
 
 
 

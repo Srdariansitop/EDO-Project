@@ -5,3 +5,5 @@ class Numerica:
     def suma_numerica(*args):
         arr = sorted(args)
         return sum(arr)
+    
+
