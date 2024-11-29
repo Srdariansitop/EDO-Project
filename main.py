@@ -5,15 +5,22 @@ import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import sys
+<<<<<<< Updated upstream
 import os
 from PIL import Image, ImageTk 
 from numerica import Numerica as n
 
+=======
+from Numerica import Numerica
+>>>>>>> Stashed changes
 
+#Intancia de la Clase Numerica
+numerica = Numerica()
 
 ventana = tk.Tk()
 ventana.title("Interfaz")
 
+<<<<<<< Updated upstream
 ruta_imagen = os.path.join(os.getcwd(), "Image", "X2.jpg")
 
 try:
@@ -23,6 +30,8 @@ try:
     label.pack()
 except Exception as e:
     print(f"Error: {e}")
+=======
+>>>>>>> Stashed changes
 
 #Etiqueta
 etiqueta = tk.Label(ventana,text= " dx/dy : ",bg='black',fg='white')
@@ -84,8 +93,9 @@ respuesta_label.pack(padx=70, pady=70)
 
 # Función para obtener el epsilon de la máquina
 def VerEpsilon():
-    epsilon = sys.float_info.epsilon
+    epsilon = numerica.obtener_epsilon()  # Usar método estático de la clase Numerica
     label_epsilon.config(text=f"Epsilon de la máquina: {epsilon:.16f}")
+
 
 # Botón para ver el epsilon de la máquina
 boton_epsilon = tk.Button(ventana, text="Ver Epsilon de la máquina", command=VerEpsilon,bg='black',fg='white')
@@ -97,7 +107,7 @@ label_epsilon = tk.Label(ventana, text="", font=("Helvetica", 12), fg="white" , 
 label_epsilon.pack()
 label_epsilon.place(x=250, y=250)  # Ajusta la posición para que esté al lado del botón
 
-# ELEMENTOS NUMERICA CALCULAR ERROR
+
 # Etiqueta para introducir el valor real
 etiqueta_real = tk.Label(ventana, text="Introducir Valor Real:",bg='black',fg='white')
 etiqueta_real.pack()
@@ -109,14 +119,13 @@ cajatext_real.pack()
 cajatext_real.place(x=200, y=290)
 
 # Botón para calcular el error
-def CalcularError():
+# Función para calcular el error
+def CalcularErrorDesdeInterfaz():
     try:
-        valor_real = float(cajatext_real.get())  # Obtener el valor exacto
+        valor_real = float(cajatext_real.get())  # Obtener el valor exacto desde la interfaz
         if respuesta_label["text"]:  # Asegurarse de que ya hay una solución
             texto_respuesta = respuesta_label["text"]
-            y_aprox = float(texto_respuesta.split("y = ")[1])  # Extraer y
-            error_absoluto = abs(valor_real - y_aprox)  # Calcular error absoluto
-            error_relativo = (error_absoluto / abs(valor_real)) * 100  # Calcular error relativo
+            error_absoluto, error_relativo = numerica.calcular_error(valor_real, texto_respuesta)  # Usar el método de la clase Numerica
             label_error_absoluto.config(text=f"{error_absoluto:.4f}")
             label_error_relativo.config(text=f"{error_relativo:.2f}%")
         else:
@@ -124,27 +133,76 @@ def CalcularError():
     except ValueError:
         label_error.config(text="Ingrese un valor numérico válido para el valor real.")
 
+<<<<<<< Updated upstream
 boton_calcular_error = tk.Button(ventana, text="Calcular Error", command=CalcularError,bg='black',fg='white')
+=======
+# Botón para calcular el error
+boton_calcular_error = tk.Button(ventana, text="Calcular Error", command=CalcularErrorDesdeInterfaz)
+>>>>>>> Stashed changes
 boton_calcular_error.pack()
-boton_calcular_error.place(x=420, y=290)
+boton_calcular_error.place(x=425, y=290)
 
 # Etiquetas para los errores
 etiqueta_error_relativo = tk.Label(ventana, text="Error Relativo en Porcentaje:",bg='black',fg='white')
 etiqueta_error_relativo.pack()
-etiqueta_error_relativo.place(x=420, y=330)
+etiqueta_error_relativo.place(x=425, y=330)
 
 label_error_relativo = tk.Label(ventana, text="",bg='black',fg='white')
 label_error_relativo.pack()
-label_error_relativo.place(x=580, y=330)
+label_error_relativo.place(x=585, y=330)
 
 etiqueta_error_absoluto = tk.Label(ventana, text="Error Absoluto:",bg='black',fg='white')
 etiqueta_error_absoluto.pack()
-etiqueta_error_absoluto.place(x=420, y=360)
+etiqueta_error_absoluto.place(x=425, y=360)
 
 label_error_absoluto = tk.Label(ventana, text="",bg='black',fg='white')
 label_error_absoluto.pack()
-label_error_absoluto.place(x=510, y=360)
-# ** FIN DE LOS ELEMENTOS NUEVOS **
+label_error_absoluto.place(x=515, y=360)
+
+etiqueta_e = tk.Label(ventana, text="Introducir Intervalo e:")
+etiqueta_e.pack()
+etiqueta_e.place(x=425, y=470)
+
+cajatext_e = tk.Entry(ventana)
+cajatext_e.pack()
+cajatext_e.place(x=548, y=470)
+
+explicacion_label = tk.Label(
+    ventana,
+    text="El programa calcula el valor más cercano a un objetivo conocido (x) \n"
+         "con el menor error relativo dentro del rango definido por un margen de error (e).\n"
+         "Introduce el margen de error (e) a continuación.",
+    font=("Helvetica", 10),
+    fg="black"
+)
+explicacion_label.pack()
+explicacion_label.place(x=500, y=400)
+
+resultado_lower_error_label = tk.Label(
+    ventana, 
+    text="Resultado: --- (valor más cercano con menor error relativo a x)", 
+    font=("Helvetica", 12), 
+    fg="blue"
+)
+resultado_lower_error_label.pack()
+resultado_lower_error_label.place(x=500, y=436)
+resultado_lower_error_label.place(x=600, y=510)
+
+# Función para calcular el valor con el menor error relativo desde la GUI
+def CalcularLowerError():
+    try:
+        x = float(cajatext2.get())  # Obtener el valor de x desde cajatext2
+        e = float(cajatext_e.get())  # Obtener el valor de e desde cajatext_e
+        mejor_aproximado = numerica.lower_error(x, e)  # Llamar a la función `lower_error` de Numerica
+        resultado_lower_error_label.config(text=f"Valor con menor error: {mejor_aproximado:.4f}")
+    except ValueError:
+        label_error.config(text="Ingrese valores válidos para x y e.")
+
+# Botón para calcular el valor con el menor error relativo
+boton_lower_error = tk.Button(ventana, text="Calcular Menor Error Relativo", command=CalcularLowerError)
+boton_lower_error.pack()
+boton_lower_error.place(x=425, y=510)
+
 
 
 #Obtener Texto
@@ -210,7 +268,11 @@ def Graficar():
     except Exception as e:
         label_error.config(text=f"Error al graficar: {e}")
 
+<<<<<<< Updated upstream
 
+=======
+    
+>>>>>>> Stashed changes
 def Resolver():
     try:
         label_error.config(text="")
