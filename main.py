@@ -5,7 +5,7 @@ import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import sys
-from Numerica import Numerica
+from numerica import Numerica
 
 #Intancia de la Clase Numerica
 numerica = Numerica()
