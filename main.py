@@ -5,14 +5,7 @@ import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import sys
-<<<<<<< Updated upstream
-import os
-from PIL import Image, ImageTk 
-from numerica import Numerica as n
-
-=======
 from Numerica import Numerica
->>>>>>> Stashed changes
 
 #Intancia de la Clase Numerica
 numerica = Numerica()
@@ -20,18 +13,6 @@ numerica = Numerica()
 ventana = tk.Tk()
 ventana.title("Interfaz")
 
-<<<<<<< Updated upstream
-ruta_imagen = os.path.join(os.getcwd(), "Image", "X2.jpg")
-
-try:
-    img = Image.open(ruta_imagen)
-    photo = ImageTk.PhotoImage(img)
-    label = tk.Label(ventana, image=photo)
-    label.pack()
-except Exception as e:
-    print(f"Error: {e}")
-=======
->>>>>>> Stashed changes
 
 #Etiqueta
 etiqueta = tk.Label(ventana,text= " dx/dy : ",bg='black',fg='white')
@@ -133,12 +114,8 @@ def CalcularErrorDesdeInterfaz():
     except ValueError:
         label_error.config(text="Ingrese un valor numérico válido para el valor real.")
 
-<<<<<<< Updated upstream
-boton_calcular_error = tk.Button(ventana, text="Calcular Error", command=CalcularError,bg='black',fg='white')
-=======
 # Botón para calcular el error
 boton_calcular_error = tk.Button(ventana, text="Calcular Error", command=CalcularErrorDesdeInterfaz)
->>>>>>> Stashed changes
 boton_calcular_error.pack()
 boton_calcular_error.place(x=425, y=290)
 
@@ -268,11 +245,7 @@ def Graficar():
     except Exception as e:
         label_error.config(text=f"Error al graficar: {e}")
 
-<<<<<<< Updated upstream
-
-=======
     
->>>>>>> Stashed changes
 def Resolver():
     try:
         label_error.config(text="")
