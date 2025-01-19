@@ -65,3 +65,25 @@ class Numerica:
             raise ValueError("No se encontró un mejor aproximado. Verifique los parámetros.")
     
         return aprox_better
+
+    @staticmethod
+    def suma_numerica(*args):
+        """
+        Recibe uno o más argumentos numéricos, los ordena de menor a mayor y los suma.
+        Returns:
+        float: La suma de todos los argumentos ordenados de menor a mayor.
+        """
+        sum_result = 0
+        ordered_numbers = sorted(args)
+        for num in ordered_numbers:
+            sum_result += num
+
+        return sum_result
+
+
+
+
+
+
+
+    
