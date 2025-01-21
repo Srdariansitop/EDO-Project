@@ -8,7 +8,7 @@ import sys
 import os
 from PIL import Image, ImageTk 
 from numerica import Numerica as n
-
+from Interpolation import Interpolation as interpolation
 
 
 #Intancia de la Clase Numerica
@@ -307,5 +307,97 @@ boton1.place(x=100,y= 600)
 boton2 = tk.Button(ventana,text=" Resolver" , command = Resolver,bg='black',fg='white')
 boton2.pack()
 boton2.place(x=100,y= 325)
+
+# Recuadros Interpolacion
+# Primer recuadro x1
+txtBox1 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
+txtBox1.pack()
+txtBox1.place(x=310, y=600)
+
+# Segundo recuadro x2
+txtBox2 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
+txtBox2.pack()
+txtBox2.place(x=350, y=600)
+
+# Tercer recuadro x3
+txtBox3 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
+txtBox3.pack()
+txtBox3.place(x=390, y=600)
+
+# Cuarto recuadro x4
+txtBox4 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
+txtBox4.pack()
+txtBox4.place(x=430, y=600)
+
+# Quinto recuadro x5
+txtBox5 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
+txtBox5.pack()
+txtBox5.place(x=470, y=600)
+
+# Primer recuadro f1
+txtBoxF1 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
+txtBoxF1.pack()
+txtBoxF1.place(x=310, y=650)
+
+# Segundo recuadro f2
+txtBoxF2 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
+txtBoxF2.pack()
+txtBoxF2.place(x=350, y=650)
+
+# Tercer recuadro f3
+txtBoxF3 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
+txtBoxF3.pack()
+txtBoxF3.place(x=390, y=650)
+
+# Cuarto recuadro f4
+txtBoxF4 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
+txtBoxF4.pack()
+txtBoxF4.place(x=430, y=650)
+
+# Quinto recuadro f5
+txtBoxF5 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
+txtBoxF5.pack()
+txtBoxF5.place(x=470, y=650)
+
+# Función para obtener los valores de los recuadros x1, x2, x3, x4, x5 y f1, f2, f3, f4, f5
+def obtener_valores_recuadros():
+    valores_x = []
+    valores_f = []
+
+    # Lista de los recuadros de texto x1, x2, x3, x4, x5
+    for txtBox in [txtBox1, txtBox2, txtBox3, txtBox4, txtBox5]:
+        texto = txtBox.get("1.0", "end-1c").strip()  
+        try:
+            valores_x.append(int(texto))
+        except ValueError:
+            valores_x.append(0)  
+
+    # Lista de los recuadros de texto f1, f2, f3, f4, f5
+    for txtBox in [txtBoxF1, txtBoxF2, txtBoxF3, txtBoxF4, txtBoxF5]:
+        texto = txtBox.get("1.0", "end-1c").strip()  
+        try:
+            valores_f.append(int(texto))
+        except ValueError:
+            valores_f.append(0) 
+
+    return valores_x, valores_f
+
+xi, fi = obtener_valores_recuadros()
+
+# Función de interpolación 
+def interpolar():
+    xi, fi = obtener_valores_recuadros()
+    print("Valores de xi:", xi)
+    print("Valores de fi:", fi)
+    
+    polynomial = interpolation.calculate_newton_method(xi, fi)
+    
+    print("Polinomio de interpolación:", polynomial)
+
+
+# Botón para realizar la interpolación
+btnInterpolar = tk.Button(ventana, text="Interpolar", command=interpolar)
+btnInterpolar.pack()
+btnInterpolar.place(x=510, y=600)
 
 ventana.mainloop()
