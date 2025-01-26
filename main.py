@@ -4,11 +4,13 @@ from Function import Function
 import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 import sys
 import os
 from PIL import Image, ImageTk 
 from numerica import Numerica as n
 from Interpolation import Interpolation as interpolation
+import sympy as sym
 
 
 #Intancia de la Clase Numerica
@@ -345,6 +347,16 @@ manejo_errores_label.pack()
 manejo_errores_label.place(x=800, y=430)  
 
 # Recuadros Interpolacion
+
+#Etiqueta xi
+etiquetaxi = tk.Label(ventana,text=" Xi",bg='black',fg='white', font=("Helvetica", 10, "bold"))
+etiquetaxi.pack()
+etiquetaxi.place(x = 773 , y = 477)
+#Etiqueta f(xi)
+etiquetaFxi = tk.Label(ventana,text=" f(Xi)",bg='black',fg='white', font=("Helvetica", 10, "bold"))
+etiquetaFxi.pack()
+etiquetaFxi.place(x = 760 , y = 522)
+
 # Primer recuadro x1
 txtBox1 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox1.pack()
@@ -418,26 +430,83 @@ def obtener_valores_recuadros():
 
     return valores_x, valores_f
 
-xi, fi = obtener_valores_recuadros()
+# Variable global para almacenar el polinomio como función evaluable
+funcion_polinomio = None  # Esto será una función lambda evaluable
+xi, fi = [], []  # Variables para los puntos originales
 
 # Función de interpolación 
 def interpolar():
-    xi, fi = obtener_valores_recuadros()
-    print("Valores de xi:", xi)
-    print("Valores de fi:", fi)
-    
-    polynomial = interpolation.calculate_newton_method(xi, fi)
-    
-    print("Polinomio de interpolación:", polynomial)
+    global funcion_polinomio, xi, fi
+    try:
+        # Obtener valores de los recuadros de entrada
+        xi, fi = obtener_valores_recuadros()
+               
+        # Calcular el polinomio de interpolación
+        polinomio_simbolico = interpolation.calculate_newton_method(xi, fi)
+        
+        # Convertir el polinomio simbólico a una función evaluable
+        x = sym.Symbol('x')
+        funcion_polinomio = sym.lambdify(x, polinomio_simbolico, "numpy")
+        
+        # Mostrar el polinomio en el Label
+        label_polinomio.config(
+            text=f"Polinomio de interpolación:\n{polinomio_simbolico}", 
+            font=("Helvetica", 12),
+            fg="black"
+        )
+        label_polinomio.place(x=800, y=555)  # Mostrar el Label
+    except Exception as e:
+        label_polinomio.config(
+            text=f"Error: {e}",
+            font=("Helvetica", 12),
+            fg="red"
+        )
+        label_polinomio.place(x=800, y=555)  # Mostrar el error
 
+# Función para graficar el polinomio en una ventana aparte
+def graficar_polinomio():
+    global funcion_polinomio, xi, fi
+    try:
+        # Validar si el polinomio fue calculado
+        if funcion_polinomio is None:
+            raise ValueError("Primero debes calcular el polinomio de interpolación.")
+        
+        # Generar puntos para graficar el polinomio
+        x_vals = np.linspace(min(xi)-5, max(xi)+5, 1000)  # Valores equidistantes entre los puntos originales
+        y_vals = funcion_polinomio(x_vals)  # Evaluar el polinomio en estos puntos
+        
+        # Crear una nueva ventana para la gráfica
+        plt.figure("Gráfico del Polinomio de Interpolación", figsize=(8, 6))
+        plt.plot(x_vals, y_vals, label="Polinomio de Interpolación", color="blue")
+        plt.scatter(xi, fi, color="red", label="Puntos originales")  # Los puntos dados
+        plt.title("Polinomio de Interpolación")
+        plt.xlabel("X")
+        plt.ylabel("Y")
+        plt.grid(True)
+        plt.legend()
+        plt.show()
+
+    except Exception as e:
+        # Manejo de errores en la gráfica
+        label_polinomio.config(
+            text=f"Error al graficar: {e}",
+            font=("Helvetica", 12),
+            fg="red"
+        )
+        label_polinomio.place(x=800, y=555)
+
+# Label para mostrar el resultado del polinomio
+label_polinomio = tk.Label( ventana, text="", font=("Helvetica", 12), bg="white", fg="black",  wraplength=300, justify="left")
+label_polinomio.pack()
+label_polinomio.place_forget()  # Ocultar inicialmente
 
 # Botón para realizar la interpolación
-btnInterpolar = tk.Button(ventana, text="Interpolar", command=interpolar,bg='black',fg='white')
+btnInterpolar = tk.Button(ventana, text="Interpolar", command=interpolar, bg='black', fg='white')
 btnInterpolar.pack()
 btnInterpolar.place(x=1010, y=475)
 
-# Botón para GRAFICAR interpolacion
-btnGraficarInter = tk.Button(ventana, text="Graficar", command=interpolar,bg='black',fg='white')
+# Botón para graficar la interpolación
+btnGraficarInter = tk.Button(ventana, text="Graficar", command=graficar_polinomio,  bg='black', fg='white')
 btnGraficarInter.pack()
 btnGraficarInter.place(x=1080, y=475)
 
