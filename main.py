@@ -94,12 +94,12 @@ def VerEpsilon():
 # Botón para ver el epsilon de la máquina
 boton_epsilon = tk.Button(ventana, text="Ver Epsilon de la máquina", command=VerEpsilon,bg='black',fg='white')
 boton_epsilon.pack()
-boton_epsilon.place(x=50, y=250)
+boton_epsilon.place(x=50, y=600)
 
 # Etiqueta para mostrar el valor del epsilon, colocada justo al lado del botón
 label_epsilon = tk.Label(ventana, text="", font=("Helvetica", 12), fg="white" , bg='black')
 label_epsilon.pack()
-label_epsilon.place(x=250, y=250)  # Ajusta la posición para que esté al lado del botón
+label_epsilon.place(x=250, y=600)  # Ajusta la posición para que esté al lado del botón
 
 
 # Etiqueta para introducir el valor real
@@ -202,13 +202,14 @@ def ObtenerTexto(cajatext):
 
 def Graficar():
     try:
-        # Obtener datos de la interfaz (asumiendo que tienes funciones para obtenerlos)
-        f = Function(ObtenerTexto(cajatext1)) # Asegúrate que la función f está definida y que el texto se parsea correctamente
-        h = float(ObtenerTexto(cajatext4)) # Paso de Runge-Kutta
-        puntos_rk = Resolver() # Obtener puntos de Runge Kutta desde la función Resolver()
+         # Obtener datos de la interfaz
+        f = Function(ObtenerTexto(cajatext1))  # Asegúrate de que la función f está definida correctamente
+        h = float(ObtenerTexto(cajatext4))  # Paso de Runge-Kutta
+        puntos_rk = Resolver()  # Obtener puntos de Runge-Kutta desde la función Resolver
         if puntos_rk is None:
-            return # Manejar el caso donde Resolver() falla
+            return  # Manejar el caso donde Resolver() falla
 
+        # Preparar datos para la gráfica
         x_vals, y_vals = zip(*puntos_rk)
         xi, xf = min(x_vals), max(x_vals)
         yi, yf = min(y_vals), max(y_vals)
@@ -233,9 +234,15 @@ def Graficar():
         X, Y = np.meshgrid(x, y)
 
         U = 1
-        V = np.array([f.evaluate(X[i,j],Y[i,j]) for i in range(X.shape[0]) for j in range(X.shape[1])]).reshape(X.shape)
+        V = np.array([f.evaluate(X[i, j], Y[i, j]) for i in range(X.shape[0]) for j in range(X.shape[1])]).reshape(X.shape)
         U2, V2 = U / np.sqrt(U**2 + V**2), V / np.sqrt(U**2 + V**2)
 
+        # Crear la nueva ventana para la gráfica
+        ventana_grafica = tk.Toplevel(ventana)
+        ventana_grafica.title("Gráfica")
+        ventana_grafica.geometry("800x700")
+
+        # Crear la figura de matplotlib
         fig = Figure(figsize=(7, 6), dpi=100)
         ax = fig.add_subplot(111)
 
@@ -251,9 +258,10 @@ def Graficar():
         ax.axvline(0, color='black', linewidth=0.5, ls='--')
         ax.legend()
 
-        canvas = FigureCanvasTkAgg(fig, master=ventana)
+        # Integrar la figura en la nueva ventana
+        canvas = FigureCanvasTkAgg(fig, master=ventana_grafica)
         canvas.draw()
-        canvas.get_tk_widget().place(x=800, y=70)
+        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
 
     except Exception as e:
         label_error.config(text=f"Error al graficar: {e}")
@@ -301,63 +309,63 @@ def Resolver():
 #Boton Graficar
 boton1 = tk.Button(ventana,text=" Graficar" , command = Graficar,bg='black',fg='white')
 boton1.pack()
-boton1.place(x=100,y= 600)
+boton1.place(x=120,y= 250)
 
 #Boton Resolver
 boton2 = tk.Button(ventana,text=" Resolver" , command = Resolver,bg='black',fg='white')
 boton2.pack()
-boton2.place(x=100,y= 325)
+boton2.place(x=50,y= 250)
 
 # Recuadros Interpolacion
 # Primer recuadro x1
 txtBox1 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox1.pack()
-txtBox1.place(x=310, y=600)
+txtBox1.place(x=1020, y=20)
 
 # Segundo recuadro x2
 txtBox2 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox2.pack()
-txtBox2.place(x=350, y=600)
+txtBox2.place(x=1060, y=20)
 
 # Tercer recuadro x3
 txtBox3 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox3.pack()
-txtBox3.place(x=390, y=600)
+txtBox3.place(x=1100, y=20)
 
 # Cuarto recuadro x4
 txtBox4 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox4.pack()
-txtBox4.place(x=430, y=600)
+txtBox4.place(x=1140, y=20)
 
 # Quinto recuadro x5
 txtBox5 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox5.pack()
-txtBox5.place(x=470, y=600)
+txtBox5.place(x=1180, y=20)
 
 # Primer recuadro f1
 txtBoxF1 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBoxF1.pack()
-txtBoxF1.place(x=310, y=650)
+txtBoxF1.place(x=1020, y=70)
 
 # Segundo recuadro f2
 txtBoxF2 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBoxF2.pack()
-txtBoxF2.place(x=350, y=650)
+txtBoxF2.place(x=1060, y=70)
 
 # Tercer recuadro f3
 txtBoxF3 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBoxF3.pack()
-txtBoxF3.place(x=390, y=650)
+txtBoxF3.place(x=1100, y=70)
 
 # Cuarto recuadro f4
 txtBoxF4 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBoxF4.pack()
-txtBoxF4.place(x=430, y=650)
+txtBoxF4.place(x=1140, y=70)
 
 # Quinto recuadro f5
 txtBoxF5 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBoxF5.pack()
-txtBoxF5.place(x=470, y=650)
+txtBoxF5.place(x=1180, y=70)
 
 # Función para obtener los valores de los recuadros x1, x2, x3, x4, x5 y f1, f2, f3, f4, f5
 def obtener_valores_recuadros():
@@ -398,6 +406,6 @@ def interpolar():
 # Botón para realizar la interpolación
 btnInterpolar = tk.Button(ventana, text="Interpolar", command=interpolar)
 btnInterpolar.pack()
-btnInterpolar.place(x=510, y=600)
+btnInterpolar.place(x=1240, y=25)
 
 ventana.mainloop()
