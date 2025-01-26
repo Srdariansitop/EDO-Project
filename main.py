@@ -128,6 +128,8 @@ def CalcularErrorDesdeInterfaz():
             error_absoluto, error_relativo = numerica.calcular_error(valor_real, texto_respuesta)  # Usar el método de la clase Numerica
             label_error_absoluto.config(text=f"{error_absoluto:.4f}")
             label_error_relativo.config(text=f"{error_relativo:.2f}%")
+            label_error_relativo.place(x=960, y=165)
+            label_error_absoluto.place(x=890, y=195)
         else:
             label_error.config(text="Primero resuelva la EDO para calcular los errores.")
     except ValueError:
@@ -146,6 +148,7 @@ etiqueta_error_relativo.place(x=800, y=165)
 label_error_relativo = tk.Label(ventana, text="",bg='black',fg='white')
 label_error_relativo.pack()
 label_error_relativo.place(x=960, y=165)
+label_error_relativo.place_forget()
 
 etiqueta_error_absoluto = tk.Label(ventana, text="Error Absoluto:",bg='black',fg='white')
 etiqueta_error_absoluto.pack()
@@ -154,14 +157,15 @@ etiqueta_error_absoluto.place(x=800, y=195)
 label_error_absoluto = tk.Label(ventana, text="",bg='black',fg='white')
 label_error_absoluto.pack()
 label_error_absoluto.place(x=890, y=195)
+label_error_absoluto.place_forget()
 
 etiqueta_e = tk.Label(ventana, text="Introducir Intervalo e:")
 etiqueta_e.pack()
-etiqueta_e.place(x=425, y=470)
+etiqueta_e.place(x=800, y=330)
 
 cajatext_e = tk.Entry(ventana)
 cajatext_e.pack()
-cajatext_e.place(x=548, y=470)
+cajatext_e.place(x=925, y=330)
 
 explicacion_label = tk.Label(
     ventana,
@@ -172,7 +176,7 @@ explicacion_label = tk.Label(
     fg="black"
 )
 explicacion_label.pack()
-explicacion_label.place(x=500, y=400)
+explicacion_label.place(x=850, y=250)
 
 resultado_lower_error_label = tk.Label(
     ventana, 
@@ -195,9 +199,9 @@ def CalcularLowerError():
         label_error.config(text="Ingrese valores válidos para x y e.")
 
 # Botón para calcular el valor con el menor error relativo
-boton_lower_error = tk.Button(ventana, text="Calcular Menor Error Relativo", command=CalcularLowerError)
+boton_lower_error = tk.Button(ventana, text="Calcular Menor Error Relativo", command=CalcularLowerError, bg='black',fg='white')
 boton_lower_error.pack()
-boton_lower_error.place(x=425, y=510)
+boton_lower_error.place(x=800, y=370)
 
 
 
