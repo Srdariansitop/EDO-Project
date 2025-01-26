@@ -77,41 +77,46 @@ label_error = tk.Label(ventana, text="", fg="red")
 label_error.pack() 
 
 # Crea un Label para la respuesta
-respuesta_frame = ttk.Frame(ventana, relief="sunken", borderwidth=2)
+respuesta_frame = ttk.Frame(ventana, relief="sunken", borderwidth=1)
 respuesta_frame.pack(pady=10, side=tk.BOTTOM, anchor=tk.CENTER)
 respuesta_frame.place(x=50,y=300)
 respuesta_frame.place_forget()
 
 respuesta_label = ttk.Label(respuesta_frame, text="", wraplength=300, justify="left")
-respuesta_label.pack(padx=70, pady=70)
+respuesta_label.pack(padx=40, pady=40)
 
 
 # Función para obtener el epsilon de la máquina
 def VerEpsilon():
     epsilon = numerica.obtener_epsilon()  # Usar método estático de la clase Numerica
     label_epsilon.config(text=f"Epsilon de la máquina: {epsilon:.16f}")
+    label_epsilon.place(x=1150, y=30)  
 
+manejo_errores_label = tk.Label(ventana, text="Manejo de errores:", font=("Helvetica", 14, "bold"), bg="black", fg="white")
+manejo_errores_label.pack()  # Añadirlo a la ventana
+manejo_errores_label.place(x=800, y=30)  # Ajustar posición según tu diseño
 
 # Botón para ver el epsilon de la máquina
 boton_epsilon = tk.Button(ventana, text="Ver Epsilon de la máquina", command=VerEpsilon,bg='black',fg='white')
 boton_epsilon.pack()
-boton_epsilon.place(x=50, y=600)
+boton_epsilon.place(x=995, y=30)
 
 # Etiqueta para mostrar el valor del epsilon, colocada justo al lado del botón
 label_epsilon = tk.Label(ventana, text="", font=("Helvetica", 12), fg="white" , bg='black')
 label_epsilon.pack()
-label_epsilon.place(x=250, y=600)  # Ajusta la posición para que esté al lado del botón
+label_epsilon.place(x=1150, y=30)  
+label_epsilon.place_forget()
 
 
 # Etiqueta para introducir el valor real
 etiqueta_real = tk.Label(ventana, text="Introducir Valor Real:",bg='black',fg='white')
 etiqueta_real.pack()
-etiqueta_real.place(x=50, y=650)
+etiqueta_real.place(x=800, y=80)
 
 # Caja de texto para el valor real
 cajatext_real = tk.Entry(ventana,bg='black',fg='white')
 cajatext_real.pack()
-cajatext_real.place(x=200, y=650)
+cajatext_real.place(x=920, y=80)
 
 # Botón para calcular el error
 # Función para calcular el error
@@ -129,26 +134,26 @@ def CalcularErrorDesdeInterfaz():
         label_error.config(text="Ingrese un valor numérico válido para el valor real.")
 
 # Botón para calcular el error
-boton_calcular_error = tk.Button(ventana, text="Calcular Error", command=CalcularErrorDesdeInterfaz)
+boton_calcular_error = tk.Button(ventana, text="Calcular Error", command=CalcularErrorDesdeInterfaz, bg='black',fg='white')
 boton_calcular_error.pack()
-boton_calcular_error.place(x=425, y=290)
+boton_calcular_error.place(x=800, y=125)
 
 # Etiquetas para los errores
 etiqueta_error_relativo = tk.Label(ventana, text="Error Relativo en Porcentaje:",bg='black',fg='white')
 etiqueta_error_relativo.pack()
-etiqueta_error_relativo.place(x=425, y=330)
+etiqueta_error_relativo.place(x=800, y=165)
 
 label_error_relativo = tk.Label(ventana, text="",bg='black',fg='white')
 label_error_relativo.pack()
-label_error_relativo.place(x=585, y=330)
+label_error_relativo.place(x=960, y=165)
 
 etiqueta_error_absoluto = tk.Label(ventana, text="Error Absoluto:",bg='black',fg='white')
 etiqueta_error_absoluto.pack()
-etiqueta_error_absoluto.place(x=425, y=360)
+etiqueta_error_absoluto.place(x=800, y=195)
 
 label_error_absoluto = tk.Label(ventana, text="",bg='black',fg='white')
 label_error_absoluto.pack()
-label_error_absoluto.place(x=515, y=360)
+label_error_absoluto.place(x=890, y=195)
 
 etiqueta_e = tk.Label(ventana, text="Introducir Intervalo e:")
 etiqueta_e.pack()
@@ -300,7 +305,13 @@ def Resolver():
         texto_respuesta = f"""Solución por el método Runge-Kutta:
 x = {ultimo_punto[0]:.2f}
 y = {ultimo_punto[1]:.2f}"""
-        respuesta_label.config(text=texto_respuesta, font=("Helvetica", 14))
+        respuesta_label.config(text=texto_respuesta, font=("Helvetica", 18))  # Letra más grande
+
+        # Ajusta dinámicamente el tamaño del frame al texto
+        respuesta_label.update_idletasks()  # Asegura que el tamaño requerido se calcule
+        width = respuesta_label.winfo_reqwidth() + 100
+        height = respuesta_label.winfo_reqheight() + 100
+        respuesta_frame.config(width=width, height=height)
 
         # Muestra el frame de respuesta
         respuesta_frame.place(x=50, y=300)
@@ -329,52 +340,52 @@ boton2.place(x=50,y= 250)
 # Primer recuadro x1
 txtBox1 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox1.pack()
-txtBox1.place(x=1020, y=20)
+txtBox1.place(x=1020, y=700)
 
 # Segundo recuadro x2
 txtBox2 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox2.pack()
-txtBox2.place(x=1060, y=20)
+txtBox2.place(x=1060, y=700)
 
 # Tercer recuadro x3
 txtBox3 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox3.pack()
-txtBox3.place(x=1100, y=20)
+txtBox3.place(x=1100, y=700)
 
 # Cuarto recuadro x4
 txtBox4 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox4.pack()
-txtBox4.place(x=1140, y=20)
+txtBox4.place(x=1140, y=700)
 
 # Quinto recuadro x5
 txtBox5 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox5.pack()
-txtBox5.place(x=1180, y=20)
+txtBox5.place(x=1180, y=700)
 
 # Primer recuadro f1
 txtBoxF1 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBoxF1.pack()
-txtBoxF1.place(x=1020, y=70)
+txtBoxF1.place(x=1020, y=770)
 
 # Segundo recuadro f2
 txtBoxF2 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBoxF2.pack()
-txtBoxF2.place(x=1060, y=70)
+txtBoxF2.place(x=1060, y=770)
 
 # Tercer recuadro f3
 txtBoxF3 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBoxF3.pack()
-txtBoxF3.place(x=1100, y=70)
+txtBoxF3.place(x=1100, y=770)
 
 # Cuarto recuadro f4
 txtBoxF4 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBoxF4.pack()
-txtBoxF4.place(x=1140, y=70)
+txtBoxF4.place(x=1140, y=770)
 
 # Quinto recuadro f5
 txtBoxF5 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBoxF5.pack()
-txtBoxF5.place(x=1180, y=70)
+txtBoxF5.place(x=1180, y=770)
 
 # Función para obtener los valores de los recuadros x1, x2, x3, x4, x5 y f1, f2, f3, f4, f5
 def obtener_valores_recuadros():
@@ -415,6 +426,6 @@ def interpolar():
 # Botón para realizar la interpolación
 btnInterpolar = tk.Button(ventana, text="Interpolar", command=interpolar)
 btnInterpolar.pack()
-btnInterpolar.place(x=1240, y=25)
+btnInterpolar.place(x=1240, y=700)
 
 ventana.mainloop()
