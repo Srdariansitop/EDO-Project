@@ -93,8 +93,8 @@ def VerEpsilon():
     label_epsilon.place(x=1150, y=30)  
 
 manejo_errores_label = tk.Label(ventana, text="Manejo de errores:", font=("Helvetica", 14, "bold"), bg="black", fg="white")
-manejo_errores_label.pack()  # Añadirlo a la ventana
-manejo_errores_label.place(x=800, y=30)  # Ajustar posición según tu diseño
+manejo_errores_label.pack() 
+manejo_errores_label.place(x=800, y=30)  
 
 # Botón para ver el epsilon de la máquina
 boton_epsilon = tk.Button(ventana, text="Ver Epsilon de la máquina", command=VerEpsilon,bg='black',fg='white')
@@ -159,7 +159,7 @@ label_error_absoluto.pack()
 label_error_absoluto.place(x=890, y=195)
 label_error_absoluto.place_forget()
 
-etiqueta_e = tk.Label(ventana, text="Introducir Intervalo e:")
+etiqueta_e = tk.Label(ventana, text="Introducir Intervalo e:",bg='black',fg='white')
 etiqueta_e.pack()
 etiqueta_e.place(x=800, y=330)
 
@@ -186,7 +186,7 @@ resultado_lower_error_label = tk.Label(
 )
 resultado_lower_error_label.pack()
 resultado_lower_error_label.place(x=500, y=436)
-resultado_lower_error_label.place(x=600, y=510)
+resultado_lower_error_label.place(x=970, y=370)
 
 # Función para calcular el valor con el menor error relativo desde la GUI
 def CalcularLowerError():
@@ -340,56 +340,60 @@ boton2 = tk.Button(ventana,text=" Resolver" , command = Resolver,bg='black',fg='
 boton2.pack()
 boton2.place(x=50,y= 250)
 
+manejo_errores_label = tk.Label(ventana, text="INTERPOLACION:", font=("Helvetica", 14, "bold"), bg="black", fg="white")
+manejo_errores_label.pack() 
+manejo_errores_label.place(x=800, y=430)  
+
 # Recuadros Interpolacion
 # Primer recuadro x1
 txtBox1 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox1.pack()
-txtBox1.place(x=1020, y=700)
+txtBox1.place(x=800, y=470)
 
 # Segundo recuadro x2
 txtBox2 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox2.pack()
-txtBox2.place(x=1060, y=700)
+txtBox2.place(x=840, y=470)
 
 # Tercer recuadro x3
 txtBox3 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox3.pack()
-txtBox3.place(x=1100, y=700)
+txtBox3.place(x=880, y=470)
 
 # Cuarto recuadro x4
 txtBox4 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox4.pack()
-txtBox4.place(x=1140, y=700)
+txtBox4.place(x=920, y=470)
 
 # Quinto recuadro x5
 txtBox5 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBox5.pack()
-txtBox5.place(x=1180, y=700)
+txtBox5.place(x=960, y=470)
 
 # Primer recuadro f1
 txtBoxF1 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBoxF1.pack()
-txtBoxF1.place(x=1020, y=770)
+txtBoxF1.place(x=800, y=515)
 
 # Segundo recuadro f2
 txtBoxF2 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBoxF2.pack()
-txtBoxF2.place(x=1060, y=770)
+txtBoxF2.place(x=840, y=515)
 
 # Tercer recuadro f3
 txtBoxF3 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBoxF3.pack()
-txtBoxF3.place(x=1100, y=770)
+txtBoxF3.place(x=880, y=515)
 
 # Cuarto recuadro f4
 txtBoxF4 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBoxF4.pack()
-txtBoxF4.place(x=1140, y=770)
+txtBoxF4.place(x=920, y=515)
 
 # Quinto recuadro f5
 txtBoxF5 = tk.Text(ventana, width=4, height=2, bg='white', fg='black')
 txtBoxF5.pack()
-txtBoxF5.place(x=1180, y=770)
+txtBoxF5.place(x=960, y=515)
 
 # Función para obtener los valores de los recuadros x1, x2, x3, x4, x5 y f1, f2, f3, f4, f5
 def obtener_valores_recuadros():
@@ -428,8 +432,13 @@ def interpolar():
 
 
 # Botón para realizar la interpolación
-btnInterpolar = tk.Button(ventana, text="Interpolar", command=interpolar)
+btnInterpolar = tk.Button(ventana, text="Interpolar", command=interpolar,bg='black',fg='white')
 btnInterpolar.pack()
-btnInterpolar.place(x=1240, y=700)
+btnInterpolar.place(x=1010, y=475)
+
+# Botón para GRAFICAR interpolacion
+btnGraficarInter = tk.Button(ventana, text="Graficar", command=interpolar,bg='black',fg='white')
+btnGraficarInter.pack()
+btnGraficarInter.place(x=1080, y=475)
 
 ventana.mainloop()
