@@ -30,16 +30,16 @@ except Exception as e:
     print(f"Error: {e}")
 
 #Etiqueta
-etiqueta = tk.Label(ventana,text= " dx/dy : ",bg='black',fg='white')
+etiqueta = tk.Label(ventana,text= " dx/dy : ",bg='black',fg='white',font=("Helvetica", 10, "bold"))
 etiqueta.pack()
-etiqueta.place(x = 50 , y = 30)
+etiqueta.place(x = 40 , y = 30)
 #Caja de Texto
 cajatext1 = tk.Entry(ventana,bg='black',fg='white')
 cajatext1.pack()
 cajatext1.place(x=100 , y = 30)
 
 #Etiqueta 2
-etiqueta2 = tk.Label(ventana,text=" Xo :",bg='black',fg='white')
+etiqueta2 = tk.Label(ventana,text=" Xo :",bg='black',fg='white',font=("Helvetica", 10, "bold"))
 etiqueta2.pack()
 etiqueta2.place(x = 50 , y = 70)
 #Caja de Texto 2
@@ -48,7 +48,7 @@ cajatext2.pack()
 cajatext2.place(x=100 , y = 70)
 
 #Etiqueta 3
-etiqueta3 = tk.Label(ventana,text=" Yo :",bg='black',fg='white')
+etiqueta3 = tk.Label(ventana,text=" Yo :",bg='black',fg='white',font=("Helvetica", 10, "bold"))
 etiqueta3.pack()
 etiqueta3.place(x = 50 , y = 110)
 #Caja de Texto 3
@@ -57,7 +57,7 @@ cajatext3.pack()
 cajatext3.place(x=100 , y = 110)
 
 #Etiqueta 4
-etiqueta4 = tk.Label(ventana,text=" H :",bg='black',fg='white')
+etiqueta4 = tk.Label(ventana,text=" H :",bg='black',fg='white',font=("Helvetica", 10, "bold"))
 etiqueta4.pack()
 etiqueta4.place(x = 50 , y = 150)
 #Caja de Texto 4
@@ -66,7 +66,7 @@ cajatext4.pack()
 cajatext4.place(x=100 , y = 150)
 
 #Etiqueta 5
-etiqueta5 = tk.Label(ventana,text=" xi :",bg='black',fg='white')
+etiqueta5 = tk.Label(ventana,text=" xi :",bg='black',fg='white',font=("Helvetica", 10, "bold"))
 etiqueta5.pack()
 etiqueta5.place(x = 50 , y = 190)
 #Caja de Texto 5
@@ -94,7 +94,7 @@ def VerEpsilon():
     label_epsilon.config(text=f"Epsilon de la máquina: {epsilon:.16f}")
     label_epsilon.place(x=1150, y=30)  
 
-manejo_errores_label = tk.Label(ventana, text="Manejo de errores:", font=("Helvetica", 14, "bold"), bg="black", fg="white")
+manejo_errores_label = tk.Label(ventana, text="Manejo de errores:", font=("Helvetica", 14, "bold italic"), bg="black", fg="white")
 manejo_errores_label.pack() 
 manejo_errores_label.place(x=800, y=30)  
 
@@ -138,7 +138,7 @@ def CalcularErrorDesdeInterfaz():
         label_error.config(text="Ingrese un valor numérico válido para el valor real.")
 
 # Botón para calcular el error
-boton_calcular_error = tk.Button(ventana, text="Calcular Error", command=CalcularErrorDesdeInterfaz, bg='black',fg='white')
+boton_calcular_error = tk.Button(ventana, text="Calcular Error", command=CalcularErrorDesdeInterfaz, bg='black',fg='white',font=("Helvetica", 12, "bold"))
 boton_calcular_error.pack()
 boton_calcular_error.place(x=800, y=125)
 
@@ -201,9 +201,9 @@ def CalcularLowerError():
         label_error.config(text="Ingrese valores válidos para x y e.")
 
 # Botón para calcular el valor con el menor error relativo
-boton_lower_error = tk.Button(ventana, text="Calcular Menor Error Relativo", command=CalcularLowerError, bg='black',fg='white')
+boton_lower_error = tk.Button(ventana, text="Calcular Menor Error Relativo:", command=CalcularLowerError, bg='black',fg='white', font=("Helvetica", 12, "bold"))
 boton_lower_error.pack()
-boton_lower_error.place(x=800, y=370)
+boton_lower_error.place(x=715, y=370)
 
 
 
@@ -333,16 +333,16 @@ y = {ultimo_punto[1]:.2f}"""
 
 
 #Boton Graficar
-boton1 = tk.Button(ventana,text=" Graficar" , command = Graficar,bg='black',fg='white')
+boton1 = tk.Button(ventana,text=" Graficar" , command = Graficar,bg='black',fg='white',font=("Helvetica", 12, "bold"))
 boton1.pack()
-boton1.place(x=120,y= 250)
+boton1.place(x=150,y= 250)
 
 #Boton Resolver
-boton2 = tk.Button(ventana,text=" Resolver" , command = Resolver,bg='black',fg='white')
+boton2 = tk.Button(ventana,text=" Resolver" , command = Resolver,bg='black',fg='white',font=("Helvetica", 12, "bold"))
 boton2.pack()
 boton2.place(x=50,y= 250)
 
-manejo_errores_label = tk.Label(ventana, text="INTERPOLACION:", font=("Helvetica", 14, "bold"), bg="black", fg="white")
+manejo_errores_label = tk.Label(ventana, text="INTERPOLACION:", font=("Helvetica", 14, "bold italic"), bg="black", fg="white")
 manejo_errores_label.pack() 
 manejo_errores_label.place(x=800, y=430)  
 
@@ -501,13 +501,13 @@ label_polinomio.pack()
 label_polinomio.place_forget()  # Ocultar inicialmente
 
 # Botón para realizar la interpolación
-btnInterpolar = tk.Button(ventana, text="Interpolar", command=interpolar, bg='black', fg='white')
+btnInterpolar = tk.Button(ventana, text="Interpolar", command=interpolar, bg='black', fg='white',font=("Helvetica", 12, "bold"))
 btnInterpolar.pack()
 btnInterpolar.place(x=1010, y=475)
 
 # Botón para graficar la interpolación
-btnGraficarInter = tk.Button(ventana, text="Graficar", command=graficar_polinomio,  bg='black', fg='white')
+btnGraficarInter = tk.Button(ventana, text="Graficar", command=graficar_polinomio,  bg='black', fg='white',font=("Helvetica", 12, "bold"))
 btnGraficarInter.pack()
-btnGraficarInter.place(x=1080, y=475)
+btnGraficarInter.place(x=1105, y=475)
 
 ventana.mainloop()
