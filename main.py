@@ -92,7 +92,11 @@ respuesta_label.pack(padx=40, pady=40)
 def VerEpsilon():
     epsilon = numerica.obtener_epsilon()  # Usar método estático de la clase Numerica
     label_epsilon.config(text=f"Epsilon de la máquina: {epsilon:.16f}")
-    label_epsilon.place(x=1150, y=30)  
+    label_epsilon.place(x=1200, y=30)
+    ventana.after(3000, ocultar_label_epsilon)  # Ocultar la etiqueta después de 3 segundos 
+# Función para ocultar la etiqueta del epsilon
+def ocultar_label_epsilon():
+    label_epsilon.place_forget()
 
 manejo_errores_label = tk.Label(ventana, text="Manejo de errores:", font=("Helvetica", 14, "bold italic"), bg="black", fg="white")
 manejo_errores_label.pack() 
@@ -118,7 +122,7 @@ etiqueta_real.place(x=800, y=80)
 # Caja de texto para el valor real
 cajatext_real = tk.Entry(ventana,bg='black',fg='white')
 cajatext_real.pack()
-cajatext_real.place(x=920, y=80)
+cajatext_real.place(x=940, y=80)  
 
 # Botón para calcular el error
 # Función para calcular el error
@@ -130,8 +134,8 @@ def CalcularErrorDesdeInterfaz():
             error_absoluto, error_relativo = numerica.calcular_error(valor_real, texto_respuesta)  # Usar el método de la clase Numerica
             label_error_absoluto.config(text=f"{error_absoluto:.4f}")
             label_error_relativo.config(text=f"{error_relativo:.2f}%")
-            label_error_relativo.place(x=960, y=165)
-            label_error_absoluto.place(x=890, y=195)
+            label_error_relativo.place(x=1000, y=165)
+            label_error_absoluto.place(x=1000, y=195)
         else:
             label_error.config(text="Primero resuelva la EDO para calcular los errores.")
     except ValueError:
@@ -167,7 +171,7 @@ etiqueta_e.place(x=800, y=330)
 
 cajatext_e = tk.Entry(ventana)
 cajatext_e.pack()
-cajatext_e.place(x=925, y=330)
+cajatext_e.place(x=945, y=330)
 
 explicacion_label = tk.Label(
     ventana,
@@ -187,8 +191,8 @@ resultado_lower_error_label = tk.Label(
     fg="blue"
 )
 resultado_lower_error_label.pack()
-resultado_lower_error_label.place(x=500, y=436)
-resultado_lower_error_label.place(x=970, y=370)
+resultado_lower_error_label.place(x=1000, y=380)  # Coordenadas ajustadas
+
 
 # Función para calcular el valor con el menor error relativo desde la GUI
 def CalcularLowerError():
