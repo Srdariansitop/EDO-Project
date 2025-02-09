@@ -54,3 +54,5 @@ class Interpolation:
         # Expand the polynomial for better readability
         polynomial = sym.expand(polynomial)
         return polynomial
+    
+

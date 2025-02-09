@@ -294,17 +294,7 @@ def Resolver():
 
         respuesta = n.runge_kutta_4(f, Xo, Yo, H, xi)
 
-        # # Ejecuta el método Runge-Kutta
-        # while x < xi:
-        #     if n.cercanos(x, xi):
-        #         break
-        #     k1 = H * f.evaluate(x, y)
-        #     k2 = H * f.evaluate(n.suma_numerica(x, H / 2), n.suma_numerica(y, k1 / 2))
-        #     k3 = H * f.evaluate(n.suma_numerica(x, H / 2), n.suma_numerica(y, k2 / 2))
-        #     k4 = H * f.evaluate(n.suma_numerica(x, H), n.suma_numerica(y, k3))
-        #     y = n.suma_numerica(y, n.suma_numerica(k1, 2 * k2, 2 * k3, k4) / 6)
-        #     x = n.suma_numerica(x, H)
-        #     respuesta.append((x, y))
+
 
         # Muestra el último punto de la solución en respuesta_label
         ultimo_punto = respuesta[-1]

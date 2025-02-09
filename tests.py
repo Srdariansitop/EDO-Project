@@ -1,5 +1,8 @@
 from numerica import Numerica
 from Function import Function
+from Interpolation import Interpolation
+import sympy as sym
+import matplotlib.pyplot as plt
 def test_runge_kutta():
     """
         Corre tests para el metodo runge kutta, 
@@ -51,3 +54,88 @@ def test_runge_kutta():
             print(f"Test passed for {case['f']}")
         except Exception as e:
             print(f"Test failed for {case['f']}: {e}")
+    
+def test_graph():
+    """
+    Corre tests para el metodo grafico, 
+    y determina si el grafico funcion
+    Tests:
+    - Lineal
+    - Exponencial
+    - Trigonometrica
+    """
+    test_cases = [
+        # Basic Linear Function
+        {
+            'f': 'x + y',
+            'x0': 0, 'y0': 1,
+            'h': 0.1,
+            'xi': 1,
+        },
+        # Exponential Function
+        {
+            'f': 'y',
+            'x0': 0, 'y0': 1,
+            'h': 0.1,
+            'xi': 1,
+        }
+    ]
+    for case in test_cases:
+        try:
+            f = Function([case['f']])
+            points = Numerica.runge_kutta_4(
+                f, case['x0'], case['y0'],
+                case['h'], case['xi']
+            )
+
+            # Test if graphic works
+            plt.figure()
+            x_vals, y_vals = zip(*points)
+            plt.plot(x_vals, y_vals)
+            plt.title(f"Test Plot for {case['f']}")
+            plt.close() # Closing
+
+            print(f"Graphic test passed for {case['f']}")
+        except Exception as e:
+            print(f"Graphic test failed for {case['f']}: {e}")
+    
+
+def test_interpolation():
+    """
+    Corre tests para el metodo de interpolacion, 
+    y determina si el polinomio funciona y checkea precision
+    Tests:
+    - 4 puntos
+    - 3 puntos
+    """
+    test_cases = [
+        {
+            'xi': [0, 1, 2, 3],
+            'fi': [1, 3, 2, 5],
+            'test_point': 1.5
+        },
+        {
+            'xi': [0, 2, 4],
+            'fi': [0, 4, 16],
+            'test_point': 3
+        }
+    ]
+    for case in test_cases:
+        try:
+            # Calcular polinomio
+            poly = Interpolation.calculate_newton_method(
+                case['xi'], case['fi']
+            )
+
+            # Testear evaluacion
+            x = sym.Symbol('x')
+            f = sym.lambdify(x, poly, 'numpy')
+
+            # Chequear precision
+            for x_val, f_val in zip(case['xi'], case['fi']):
+                assert abs(f(x_val) - f_val) < 1e-10, \
+                    f"Interpolation failed at point {x_val}"
+            
+            print("Interpolation successful")
+        except Exception as e:
+            print(f"Interpolation test failed: {e}")
