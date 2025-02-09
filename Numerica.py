@@ -77,8 +77,41 @@ class Numerica:
         ordered_numbers = sorted(args)
         for num in ordered_numbers:
             sum_result += num
+            
+        # Debugueo
+        # print(f"Resultado de sumar {ordered_numbers} es {sum_result}")
 
         return sum_result
+    
+    @staticmethod
+    def cercanos(a, b, tol_rel = 1e-9, tol_abs = 0.0):
+        """
+        Comparacion <= que determina si 2 valores son tan cercanos numericamente,
+        que su diferencia es resultado de un error en calculos. Esto se mide usando tolerancias:
+        Variables:
+        - a, b Valores a comparar
+        - tol_rel: Tolerancia relativa
+        - tol_abs: Tolerancia absoluta
+        Returns:
+        - Booleano indicando si los valores son muy cercanos
+        """
+        return abs(a - b) <= max(tol_rel * max(abs(a), abs(b)), tol_abs)
+    
+    @staticmethod
+    def runge_kutta_4(f, x0, y0, H, xi):
+        x, y = x0, y0
+        result = [(x, y)]
+        while x < xi:
+            if Numerica.cercanos(x, xi):
+                break
+            k1 = H * f.evaluate(x, y)
+            k2 = H * f.evaluate(Numerica.suma_numerica(x, H / 2), Numerica.suma_numerica(y, k1 / 2))
+            k3 = H * f.evaluate(Numerica.suma_numerica(x, H / 2), Numerica.suma_numerica(y, k2 / 2))
+            k4 = H * f.evaluate(Numerica.suma_numerica(x, H), Numerica.suma_numerica(y, k3))
+            y = Numerica.suma_numerica(y, Numerica.suma_numerica(k1, 2 * k2, 2 * k3, k4) / 6)
+            x = Numerica.suma_numerica(x, H)
+            result.append((x, y))
+        return result
 
 
 
