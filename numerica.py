@@ -77,6 +77,9 @@ class Numerica:
         ordered_numbers = sorted(args)
         for num in ordered_numbers:
             sum_result += num
+            
+        # Debugueo
+        print(f"Resultado de sumar {ordered_numbers} es {sum_result}")
 
         return sum_result
 

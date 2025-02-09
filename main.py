@@ -30,7 +30,7 @@ except Exception as e:
     print(f"Error: {e}")
 
 #Etiqueta
-etiqueta = tk.Label(ventana,text= " dx/dy : ",bg='black',fg='white',font=("Helvetica", 10, "bold"))
+etiqueta = tk.Label(ventana,text= " dy/dx : ",bg='black',fg='white',font=("Helvetica", 10, "bold"))
 etiqueta.pack()
 etiqueta.place(x = 40 , y = 30)
 #Caja de Texto
@@ -303,7 +303,7 @@ def Resolver():
             k3 = H * f.evaluate(n.suma_numerica(x, H / 2), n.suma_numerica(y, k2 / 2))
             k4 = H * f.evaluate(n.suma_numerica(x, H), n.suma_numerica(y, k3))
             y = n.suma_numerica(y, n.suma_numerica(k1, 2 * k2, 2 * k3, k4) / 6)
-            x = n.suma_numerica(x + H)
+            x = n.suma_numerica(x, H)
             respuesta.append((x, y))
 
         # Muestra el último punto de la solución en respuesta_label
