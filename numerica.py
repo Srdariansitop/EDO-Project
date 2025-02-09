@@ -112,6 +112,8 @@ class Numerica:
             x = Numerica.suma_numerica(x, H)
             result.append((x, y))
         return result
+    
+
 
 
 
