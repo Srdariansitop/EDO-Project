@@ -29,8 +29,8 @@ class Function:
       local_vars = {'x': x, 'y': y}
 
       # Debuggueo
-      print(f"Result of evaluating {function_string} with x = {x} and y = {y}")
-      print(f"Is {eval(function_string, {"math": math}, local_vars)}")
+      # print(f"Result of evaluating {function_string} with x = {x} and y = {y}")
+      # print(f"Is {eval(function_string, {"math": math}, local_vars)}")
 
       return eval(function_string, {"math": math}, local_vars)
     elif isinstance(self.function_string, sympy.Expr):

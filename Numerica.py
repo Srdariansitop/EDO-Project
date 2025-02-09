@@ -79,9 +79,23 @@ class Numerica:
             sum_result += num
             
         # Debugueo
-        print(f"Resultado de sumar {ordered_numbers} es {sum_result}")
+        # print(f"Resultado de sumar {ordered_numbers} es {sum_result}")
 
         return sum_result
+    
+    @staticmethod
+    def cercanos(a, b, tol_rel = 1e-9, tol_abs = 0.0):
+        """
+        Comparacion <= que determina si 2 valores son tan cercanos numericamente,
+        que su diferencia es resultado de un error en calculos. Esto se mide usando tolerancias:
+        Variables:
+        - a, b Valores a comparar
+        - tol_rel: Tolerancia relativa
+        - tol_abs: Tolerancia absoluta
+        Returns:
+        - Booleano indicando si los valores son muy cercanos
+        """
+        return abs(a - b) <= max(tol_rel * max(abs(a), abs(b)), tol_abs)
 
 
 

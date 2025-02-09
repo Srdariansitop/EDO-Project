@@ -298,6 +298,8 @@ def Resolver():
 
         # Ejecuta el método Runge-Kutta
         while x < xi:
+            if n.cercanos(x, xi):
+                break
             k1 = H * f.evaluate(x, y)
             k2 = H * f.evaluate(n.suma_numerica(x, H / 2), n.suma_numerica(y, k1 / 2))
             k3 = H * f.evaluate(n.suma_numerica(x, H / 2), n.suma_numerica(y, k2 / 2))
