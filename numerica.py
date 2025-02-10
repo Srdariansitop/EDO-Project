@@ -53,7 +53,7 @@ class Numerica:
         aprox_better = None
 
         # Itera sobre el rango definido con un paso fijo
-        for i in np.arange(x - e, x + e, 0.2):
+        for i in np.arange(x - e, x + e, 0.002):
             if i == 0:  # Evitar división por cero
                 continue
             relative_error_new = abs(i - x) / abs(i)
@@ -63,7 +63,7 @@ class Numerica:
 
         if aprox_better is None:
             raise ValueError("No se encontró un mejor aproximado. Verifique los parámetros.")
-    
+        print(f"{aprox_better}")
         return aprox_better
 
     @staticmethod

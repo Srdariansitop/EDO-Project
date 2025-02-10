@@ -193,7 +193,10 @@ resultado_lower_error_label.place(x=970, y=370)
 # Función para calcular el valor con el menor error relativo desde la GUI
 def CalcularLowerError():
     try:
-        x = float(cajatext2.get())  # Obtener el valor de x desde cajatext2
+        a = Resolver()
+        # print(f"a: {a}")
+        x = a[len(a) - 1][1]  # Obtener el valor de x desde cajatext2
+        # print(f"x: {x}")
         e = float(cajatext_e.get())  # Obtener el valor de e desde cajatext_e
         mejor_aproximado = numerica.lower_error(x, e)  # Llamar a la función `lower_error` de Numerica
         resultado_lower_error_label.config(text=f"Valor con menor error: {mejor_aproximado:.4f}")
