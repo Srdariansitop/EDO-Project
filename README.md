@@ -14,7 +14,7 @@ Using the **Runge-Kutta 4th order method** and provides an interactive graphical
 
 ## User Interface
 
-![EDO-Project Interface](Image/X2.jpg)
+![EDO-Project Interface](Image/ftreadme.png)
 
 The graphical interface allows you to enter parameters intuitively and immediately visualizes:
 - The numerical solution obtained
